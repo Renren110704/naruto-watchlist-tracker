@@ -1,0 +1,21 @@
+{
+  "name": "naruto-watchlist-tracker",
+  "private": true,
+  "description": "MERN watchlist tracker and episode journal for Naruto, Naruto Shippuden and Boruto",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix server && npm install --prefix client",
+    "dev": "concurrently -n api,web -c yellow,cyan \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "extract:catalog": "npm run extract:catalog --prefix server",
+    "validate:catalog": "npm run validate:catalog --prefix server",
+    "seed": "npm run seed --prefix server",
+    "test": "npm test --prefix server",
+    "lint": "npm run lint --prefix client",
+    "build": "npm run build --prefix client",
+    "start": "npm start --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}

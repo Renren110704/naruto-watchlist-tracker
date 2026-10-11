@@ -1,0 +1,137 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Sora', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  /* Night-sky navy / charcoal surfaces */
+  --color-ink-950: #0b0f17;
+  --color-ink-900: #0e121b;
+  --color-ink-850: #131826;
+  --color-ink-800: #181e2e;
+  --color-ink-700: #222a3d;
+  --color-ink-600: #2e374d;
+  --color-ink-500: #4a5470;
+
+  /* Warm cream text */
+  --color-cream-50: #fbf7ef;
+  --color-cream-100: #f3ead8;
+  --color-cream-300: #cfc6b4;
+  --color-cream-500: #9b9586;
+
+  /* Naruto orange */
+  --color-fox-300: #ffbd80;
+  --color-fox-400: #ff9f4d;
+  --color-fox-500: #f2862e;
+  --color-fox-600: #d96f1a;
+  --color-fox-700: #a85414;
+
+  /* Hidden Leaf red */
+  --color-leaf-400: #ec7262;
+  --color-leaf-500: #e05a47;
+  --color-leaf-600: #c2402f;
+
+  /* Status */
+  --color-chakra-400: #5fb8a8;
+  --color-chakra-500: #3f9e8d;
+
+  --animate-fade-in: fade-in 0.25s ease-out both;
+  --animate-pop-in: pop-in 0.2s ease-out both;
+  --animate-slide-up: slide-up 0.3s ease-out both;
+  --animate-sharingan: sharingan-awaken 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes pop-in {
+    from { opacity: 0; transform: scale(0.97) translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes sharingan-awaken {
+    from { opacity: 0; transform: rotate(0deg) scale(0.3); }
+    30% { opacity: 1; }
+    to { opacity: 1; transform: rotate(720deg) scale(1); }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-ink-900 text-cream-100 font-sans antialiased;
+    background-image:
+      radial-gradient(1200px 600px at 100% -10%, rgb(242 134 46 / 0.07), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgb(224 90 71 / 0.05), transparent 60%);
+    background-attachment: fixed;
+    min-height: 100dvh;
+  }
+  h1, h2, h3 {
+    @apply font-display text-cream-50 tracking-tight;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-fox-400;
+  }
+  ::selection {
+    @apply bg-fox-500/40 text-cream-50;
+  }
+}
+
+/* Reusable component utilities (Tailwind v4 @utility so they can be composed with @apply) */
+@utility card {
+  @apply rounded-2xl border border-ink-700/70 bg-ink-850/80 backdrop-blur-sm;
+}
+@utility card-hover {
+  @apply transition duration-200 hover:border-ink-600 hover:bg-ink-800/80;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold
+    transition duration-150 disabled:cursor-not-allowed disabled:opacity-50 select-none whitespace-nowrap;
+}
+@utility btn-primary {
+  @apply btn bg-fox-500 text-ink-950 hover:bg-fox-400 active:bg-fox-600 shadow-sm shadow-fox-500/10;
+}
+@utility btn-secondary {
+  @apply btn border border-ink-600 bg-ink-800 text-cream-100 hover:border-ink-500 hover:bg-ink-700;
+}
+@utility btn-ghost {
+  @apply btn text-cream-300 hover:bg-ink-800 hover:text-cream-50;
+}
+@utility btn-danger {
+  @apply btn bg-leaf-600 text-cream-50 hover:bg-leaf-500;
+}
+@utility btn-sm {
+  @apply px-3 py-1.5 text-xs rounded-lg;
+}
+@utility input {
+  @apply w-full rounded-xl border border-ink-600 bg-ink-900/70 px-3.5 py-2.5 text-sm text-cream-50
+    placeholder:text-cream-500/70 transition focus:border-fox-500 focus:outline-none focus:ring-2 focus:ring-fox-500/25;
+}
+@utility input-error {
+  @apply border-leaf-500 focus:border-leaf-500 focus:ring-leaf-500/25;
+}
+@utility label {
+  @apply mb-1.5 block text-sm font-medium text-cream-300;
+}
+@utility chip {
+  @apply inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-xs font-medium;
+}
+
+/* Thin, unobtrusive scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-ink-600) transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
